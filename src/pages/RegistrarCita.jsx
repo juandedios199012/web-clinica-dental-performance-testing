@@ -63,7 +63,8 @@ function RegistrarCita() {
     setSuccess('');
     setError('');
     try {
-      await axios.post('http://localhost:3000/api/citas', data);
+      const API_URL = import.meta.env.VITE_API_URL;
+      await axios.post(`${API_URL}/RegistrarCita`, data);
       setSuccess('Cita registrada correctamente.');
       reset();
       setHoras([]);

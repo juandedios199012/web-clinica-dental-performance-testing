@@ -11,7 +11,8 @@ function ConsultarCitas() {
   const [citasFiltradas, setCitasFiltradas] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/citas')
+    const API_URL = import.meta.env.VITE_API_URL;
+    axios.get(`${API_URL}/ConsultarCitas`)
       .then(res => {
         setCitas(res.data);
         setLoading(false);
