@@ -64,12 +64,23 @@ function RegistrarCita() {
     setError('');
     try {
       const API_URL = import.meta.env.VITE_API_URL;
-      await axios.post(`${API_URL}/RegistrarCita`, data);
-      setSuccess('Cita registrada correctamente.');
-      reset();
-      setHoras([]);
+      const response = await fetch(`${API_URL}/RegistrarCita`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setError('Error al registrar la cita: ' + (result.error || response.statusText));
+        console.error('Error:', result.error || response.statusText);
+      } else {
+        setSuccess('Cita registrada correctamente.');
+        reset();
+        setHoras([]);
+      }
     } catch (err) {
-      setError('Error al registrar la cita.');
+      setError('Error al registrar la cita: ' + err.message);
+      console.error('Error:', err);
     }
     setLoading(false);
   };
