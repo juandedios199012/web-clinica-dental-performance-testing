@@ -63,6 +63,10 @@ function RegistrarCita() {
     setSuccess('');
     setError('');
     try {
+      // Convertir fecha a formato YYYY-MM-DD si viene en formato ISO
+      if (data.fecha && typeof data.fecha === 'string' && data.fecha.includes('T')) {
+        data.fecha = data.fecha.split('T')[0];
+      }
       const API_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(`${API_URL}/RegistrarCita`, {
         method: 'POST',
