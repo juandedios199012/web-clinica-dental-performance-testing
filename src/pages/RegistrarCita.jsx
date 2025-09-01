@@ -73,6 +73,9 @@ function RegistrarCita() {
       if (!response.ok) {
         setError('Error al registrar la cita: ' + (result.error || response.statusText));
         console.error('Error:', result.error || response.statusText);
+        if (result.cita) {
+          console.error('Datos enviados al backend:', result.cita);
+        }
       } else {
         setSuccess('Cita registrada correctamente.');
         reset();
