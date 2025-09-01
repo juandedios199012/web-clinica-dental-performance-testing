@@ -22,7 +22,7 @@ const servicios = [
 const schema = yup.object().shape({
   doctor: yup.string().required('Seleccione un médico'),
   servicio: yup.string().required('Seleccione un servicio'),
-  fecha: yup.date().required('Seleccione una fecha').min(new Date(), 'No puede seleccionar una fecha pasada'),
+  // fecha: yup.date().required('Seleccione una fecha').min(new Date(), 'No puede seleccionar una fecha pasada'),
   hora: yup.string().required('Seleccione una hora disponible'),
   correo: yup.string().required('Ingrese su correo electrónico'),
   telefono: yup.string().required('Ingrese su número de teléfono'),
@@ -37,7 +37,7 @@ function RegistrarCita() {
 
   const { control, handleSubmit, watch, reset, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: { doctor: '', servicio: '', fecha: '', hora: '', correo: '', telefono: '', comentario: '' }
+  defaultValues: { doctor: '', servicio: '', /* fecha: '', */ hora: '', correo: '', telefono: '', comentario: '' }
   });
 
   // Simulación de disponibilidad
@@ -48,15 +48,15 @@ function RegistrarCita() {
   };
 
   const doctor = watch('doctor');
-  const fecha = watch('fecha');
+  // const fecha = watch('fecha');
 
   React.useEffect(() => {
-    if (doctor && fecha) {
+    if (doctor /* && fecha */) {
       setHoras(disponibilidad[doctor] || []);
     } else {
       setHoras([]);
     }
-  }, [doctor, fecha]);
+  }, [doctor /*, fecha */]);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -64,9 +64,9 @@ function RegistrarCita() {
     setError('');
     try {
       // Convertir fecha a formato YYYY-MM-DD si viene en formato ISO
-      if (data.fecha && typeof data.fecha === 'string' && data.fecha.includes('T')) {
-        data.fecha = data.fecha.split('T')[0];
-      }
+  // if (data.fecha && typeof data.fecha === 'string' && data.fecha.includes('T')) {
+  //   data.fecha = data.fecha.split('T')[0];
+  // }
       const API_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(`${API_URL}/RegistrarCita`, {
         method: 'POST',
