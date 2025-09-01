@@ -72,10 +72,11 @@ function RegistrarCita() {
       const result = await response.json();
       if (!response.ok) {
         setError('Error al registrar la cita: ' + (result.error || response.statusText));
-        console.error('Error:', result.error || response.statusText);
+        let mensaje = 'Error: ' + (result.error || response.statusText);
         if (result.cita) {
-          console.error('Datos enviados al backend:', result.cita);
+          mensaje += '\n\nDatos enviados al backend:\n' + JSON.stringify(result.cita, null, 2);
         }
+        alert(mensaje);
       } else {
         setSuccess('Cita registrada correctamente.');
         reset();
