@@ -115,6 +115,7 @@ function RegistrarCita() {
             </TextField>
           )}
         />
+        {/*
         <Controller
           name="fecha"
           control={control}
@@ -122,6 +123,7 @@ function RegistrarCita() {
             <TextField type="date" label="Fecha de la cita" {...field} fullWidth required sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} error={!!errors.fecha} helperText={errors.fecha?.message} />
           )}
         />
+        */}
         <Box sx={{ mb: 2 }}>
           <Typography variant="body2">Horas disponibles:</Typography>
           {horas.length > 0 ? horas.map(h => (
