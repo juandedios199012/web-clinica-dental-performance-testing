@@ -77,8 +77,10 @@ function RegistrarCita() {
       if (!response.ok) {
         setError('Error al registrar la cita: ' + (result.error || response.statusText));
         let mensaje = 'Error: ' + (result.error || response.statusText);
+        // Mostrar los datos enviados aunque el backend no los devuelva
+        mensaje += '\n\nDatos enviados al frontend:\n' + JSON.stringify(data, null, 2);
         if (result.cita) {
-          mensaje += '\n\nDatos enviados al backend:\n' + JSON.stringify(result.cita, null, 2);
+          mensaje += '\n\nDatos recibidos por el backend:\n' + JSON.stringify(result.cita, null, 2);
         }
         alert(mensaje);
       } else {
